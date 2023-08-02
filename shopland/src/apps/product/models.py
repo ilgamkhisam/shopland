@@ -1,6 +1,7 @@
 from django.db import models
 
-# Create your models here.
+
+# Созданы 2 модели Product и Category
 
 class Category(models.Model):
     name = models.CharField("Название",max_length=50, unique=True)
@@ -26,13 +27,14 @@ class Product(models.Model):
     updated = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
 
     class Meta:
-        ordering = ["-created"]
+        ordering = ["-created"] # Вывод товара по дате создания
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
 
     def __str__(self):
         return self.name
     
-    @property
+    @property 
     def link(self):
-        return f'https://127.0.0.1:8000/products/product/{self.id}'
+        return f'https://127.0.0.1:8000/products/product/{self.id}' 
+        # при помощи property создал атрибут из метода для получение ссылки на детальную страницу товара для Аминки

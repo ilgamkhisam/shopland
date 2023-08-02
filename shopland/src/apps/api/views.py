@@ -16,6 +16,7 @@ from ..account import serializers
 
 
 class MyObtainTokenPairView(TokenObtainPairView):
+    # Предоставляет эндпоинт для получения пары токенов аутентификации с использованием кастомного сериалайзера.
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
 
@@ -24,18 +25,19 @@ class MyObtainTokenPairView(TokenObtainPairView):
 
 
 class ProductView(ListAPIView):
-    
+    # Возвращает список товаров, используя сериалайзер "ProductSerializer".
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
 
 class ProductDetailView(RetrieveAPIView):
-
+    #  Возвращает детальную информацию о товаре с помощью сериалайзера "ProductDetailsSerializer"
     serializer_class = ProductDetailsSerializer
     queryset = Product.objects.all()
 
 
 
 class AddToFavorite(APIView):
+    # Добавляет товар в список избранных
     def post(self, request, pk):
         user = request.user  
         product = get_object_or_404(Product, pk=pk)
@@ -44,6 +46,7 @@ class AddToFavorite(APIView):
 
 
 class RemoveFromFavorite(APIView):
+    #  Удаляет товар из списка избранных
     def delete(self, request, pk):
         user = request.user  
         product = get_object_or_404(Product, pk=pk)
@@ -52,6 +55,7 @@ class RemoveFromFavorite(APIView):
 
 
 class RegisterUser(CreateAPIView):
+    # Регистрирует нового пользователя с использованием кастомного сериалайзера "RegisterUserSerializer".
     serializer_class = serializers.RegisterUserSerializer
     
     def post(self, request):
